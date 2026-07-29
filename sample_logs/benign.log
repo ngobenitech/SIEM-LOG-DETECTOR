@@ -1,0 +1,4 @@
+# Synthetic records expected to stay below every default alert threshold.
+2026-07-29T08:00:00Z web-01 sshd[1001]: Accepted publickey for deploy from 192.0.2.80 port 51000 ssh2
+2026-07-29T09:00:00Z web-01 sshd[1002]: Failed password for admin from 192.0.2.81 port 51001 ssh2
+2026-07-29T10:00:00Z web-01 sshd[1003]: Failed password for admin from 192.0.2.81 port 51002 ssh2

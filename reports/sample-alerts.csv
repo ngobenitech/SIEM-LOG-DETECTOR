@@ -1,0 +1,4 @@
+rule_id,title,severity,mitre_techniques,source_ip,hostnames,username,first_seen,last_seen,event_count,unique_users,description
+SSH-SAF-003,Successful SSH login after repeated failures,critical,T1110;T1078,192.0.2.44,app-01,analyst,2026-07-29T11:00:00+00:00,2026-07-29T11:03:00+00:00,4,analyst,"User 'analyst' successfully authenticated from 192.0.2.44 after 3 failures within 10 minutes. This is a correlation signal, not proof of compromise."
+SSH-BF-001,Repeated SSH authentication failures,high,T1110;T1110.001,203.0.113.10,web-01,root,2026-07-29T09:00:00+00:00,2026-07-29T09:03:00+00:00,5,root,5 failed SSH logins from 203.0.113.10 occurred within 5 minutes.
+SSH-PS-002,Possible SSH password spraying,high,T1110.003,198.51.100.25,bastion-01,,2026-07-29T10:00:00+00:00,2026-07-29T10:03:00+00:00,4,alice;bob;carol;dave,198.51.100.25 failed authentication against 4 distinct accounts within 10 minutes.

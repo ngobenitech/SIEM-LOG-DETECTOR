@@ -1,0 +1,10 @@
+$ python -m siem_log_detector sample_logs/auth.log
+Input: sample_logs/auth.log
+Parsed: 15 events from 17 lines (2 skipped)
+Alerts: 3
+
+RULE         SEVERITY  HOST        SOURCE IP      USER     EVENTS  TITLE
+-----------  --------  ----------  -------------  -------  ------  --------------------------------------------
+SSH-SAF-003  CRITICAL  app-01      192.0.2.44     analyst  4       Successful SSH login after repeated failures
+SSH-BF-001   HIGH      web-01      203.0.113.10   root     5       Repeated SSH authentication failures
+SSH-PS-002   HIGH      bastion-01  198.51.100.25  -        4       Possible SSH password spraying

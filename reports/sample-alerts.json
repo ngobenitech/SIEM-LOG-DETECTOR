@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-07-29T15:17:50.396286+00:00",
+  "input": "sample_logs/auth.log",
+  "summary": {
+    "total_lines": 17,
+    "parsed_events": 15,
+    "skipped_lines": 2,
+    "alerts": 3
+  },
+  "configuration": {
+    "brute_force_threshold": 5,
+    "brute_force_window_minutes": 5,
+    "spray_user_threshold": 4,
+    "spray_window_minutes": 10,
+    "success_failure_threshold": 3,
+    "success_window_minutes": 10
+  },
+  "alerts": [
+    {
+      "rule_id": "SSH-SAF-003",
+      "title": "Successful SSH login after repeated failures",
+      "severity": "critical",
+      "mitre_techniques": [
+        "T1110",
+        "T1078"
+      ],
+      "source_ip": "192.0.2.44",
+      "hostnames": [
+        "app-01"
+      ],
+      "username": "analyst",
+      "first_seen": "2026-07-29T11:00:00+00:00",
+      "last_seen": "2026-07-29T11:03:00+00:00",
+      "event_count": 4,
+      "unique_users": [
+        "analyst"
+      ],
+      "description": "User 'analyst' successfully authenticated from 192.0.2.44 after 3 failures within 10 minutes. This is a correlation signal, not proof of compromise.",
+      "recommended_actions": [
+        "Contact the account owner and validate the successful login.",
+        "Review the resulting session, commands, and privilege changes.",
+        "Contain the source and reset credentials if the login is unauthorized."
+      ],
+      "evidence": [
+        "2026-07-29T11:00:00Z app-01 sshd[1401]: Failed password for analyst from 192.0.2.44 port 54001 ssh2",
+        "2026-07-29T11:01:00Z app-01 sshd[1402]: Failed password for analyst from 192.0.2.44 port 54002 ssh2",
+        "2026-07-29T11:02:00Z app-01 sshd[1403]: Failed password for analyst from 192.0.2.44 port 54003 ssh2",
+        "2026-07-29T11:03:00Z app-01 sshd[1404]: Accepted password for analyst from 192.0.2.44 port 54004 ssh2"
+      ]
+    },
+    {
+      "rule_id": "SSH-BF-001",
+      "title": "Repeated SSH authentication failures",
+      "severity": "high",
+      "mitre_techniques": [
+        "T1110",
+        "T1110.001"
+      ],
+      "source_ip": "203.0.113.10",
+      "hostnames": [
+        "web-01"
+      ],
+      "username": "root",
+      "first_seen": "2026-07-29T09:00:00+00:00",
+      "last_seen": "2026-07-29T09:03:00+00:00",
+      "event_count": 5,
+      "unique_users": [
+        "root"
+      ],
+      "description": "5 failed SSH logins from 203.0.113.10 occurred within 5 minutes.",
+      "recommended_actions": [
+        "Validate whether the source address is expected.",
+        "Review the targeted accounts and adjacent authentication events.",
+        "Block or rate-limit the source if the activity is unauthorized."
+      ],
+      "evidence": [
+        "2026-07-29T09:00:00Z web-01 sshd[1201]: Failed password for root from 203.0.113.10 port 52001 ssh2",
+        "2026-07-29T09:00:45Z web-01 sshd[1202]: Failed password for root from 203.0.113.10 port 52002 ssh2",
+        "2026-07-29T09:01:30Z web-01 sshd[1203]: Failed password for root from 203.0.113.10 port 52003 ssh2",
+        "2026-07-29T09:02:15Z web-01 sshd[1204]: Failed password for root from 203.0.113.10 port 52004 ssh2",
+        "2026-07-29T09:03:00Z web-01 sshd[1205]: Failed password for root from 203.0.113.10 port 52005 ssh2"
+      ]
+    },
+    {
+      "rule_id": "SSH-PS-002",
+      "title": "Possible SSH password spraying",
+      "severity": "high",
+      "mitre_techniques": [
+        "T1110.003"
+      ],
+      "source_ip": "198.51.100.25",
+      "hostnames": [
+        "bastion-01"
+      ],
+      "username": null,
+      "first_seen": "2026-07-29T10:00:00+00:00",
+      "last_seen": "2026-07-29T10:03:00+00:00",
+      "event_count": 4,
+      "unique_users": [
+        "alice",
+        "bob",
+        "carol",
+        "dave"
+      ],
+      "description": "198.51.100.25 failed authentication against 4 distinct accounts within 10 minutes.",
+      "recommended_actions": [
+        "Confirm whether the source is an approved scanner or jump host.",
+        "Check the targeted accounts for later successful authentication.",
+        "Review MFA, lockout, and source-blocking controls."
+      ],
+      "evidence": [
+        "2026-07-29T10:00:00Z bastion-01 sshd[1301]: Failed password for alice from 198.51.100.25 port 53001 ssh2",
+        "2026-07-29T10:01:00Z bastion-01 sshd[1302]: Failed password for bob from 198.51.100.25 port 53002 ssh2",
+        "2026-07-29T10:02:00Z bastion-01 sshd[1303]: Failed password for carol from 198.51.100.25 port 53003 ssh2",
+        "2026-07-29T10:03:00Z bastion-01 sshd[1304]: Failed password for dave from 198.51.100.25 port 53004 ssh2"
+      ]
+    }
+  ]
+}
