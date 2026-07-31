@@ -1,0 +1,10 @@
+{
+  "203.0.113.10": {
+    "timestamp": 1785504809.0152252,
+    "data": {
+      "abuse_score": 85,
+      "country": "US",
+      "usage_type": "Data Center"
+    }
+  }
+}

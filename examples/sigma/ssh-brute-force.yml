@@ -1,0 +1,27 @@
+title: SSH Brute Force Detection
+id: ssh-brute-force-rule
+status: stable
+description: |
+  Detects multiple failed SSH login attempts from a single source IP
+  within a short time window, indicating a possible brute force attack.
+author: siem-log-detector
+date: 2026/07/31
+references:
+  - https://attack.mitre.org/techniques/T1110/
+logsource:
+  product: linux
+  service: sshd
+detection:
+  selection:
+    action: Failed password
+  condition: selection
+falsepositives:
+  - Administrators using password-based authentication
+level: high
+siem_config:
+  brute_force_threshold: 5
+  brute_force_window_minutes: 5
+  spray_user_threshold: 4
+  spray_window_minutes: 10
+  success_failure_threshold: 3
+  success_window_minutes: 10
